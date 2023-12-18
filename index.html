@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+  </head>
+  <body>
+    <script>
+      // 데이터
+      const data = [10, 30, 50, 70, 90, 100, 200, 300, 10,];
+
+      // x, y 축 설정
+      const xScale = d3
+        .scaleLinear()
+        .domain([0, data.length - 1])
+        .range([0, 300]);
+
+      const yScale = d3
+        .scaleLinear()
+        .domain([0, d3.max(data)])
+        .range([150, 0]);
+
+      // 선 생성
+      const line = d3
+        .line()
+        .x((d, i) => xScale(i))
+        .y((d) => yScale(d));
+
+      // SVG 요소 생성
+      const svg = d3
+        .select("body")
+        .append("svg")
+        .attr("width", 400)
+        .attr("height", 200);
+
+      // 선 추가
+      svg
+        .append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", "blue")
+        .attr("stroke-width", 2)
+        .attr("d", line);
+    </script>
+  </body>
+</html>
